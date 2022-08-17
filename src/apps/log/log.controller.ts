@@ -16,13 +16,13 @@ export class LogController {
   ) {}
 
 
-  @Get('/log')
+  @Get('log')
   listLog(@Query() params: any) {
     console.log(params,'params')
     return this.logService.listLog(params)
   }
 
-  @Post('/log')
+  @Post('log')
   postLog(@Body() params: any) {
     return this.logService.postLog(params)
   }
