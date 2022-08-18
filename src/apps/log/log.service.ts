@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { Model } from 'mongoose'
 import { LogDocument } from './log.schema'
+import * as moment from "moment";
 
 @Injectable()
 export class LogService {
@@ -22,8 +23,8 @@ export class LogService {
         $in:params.tags === ''?[]:(params.tags||'').split(',').map(i=>i)
       },
       createdAt : {
-        "$gte" : params.startTime,
-        "$lt" : params.endTime
+        "$gte" : moment(params.startTime).subtract(8,"h").toDate(),
+        "$lt" : moment(params.endTime).subtract(8,"h").toDate()
       }
     }
     if (params.tags === '' || params.tags === undefined){
